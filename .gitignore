@@ -4,4 +4,3 @@ bin/android-libs/*.aar
 bin/android-libs/*.jar
 bin/android/app/libs/*.?ar
 programattaAndroid.keystore
-docs
