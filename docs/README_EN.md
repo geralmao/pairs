@@ -1,6 +1,15 @@
 # 🇬🇧 MATCH EMOJIS.
 Another card game where you have to find pairs, trios, quartets, and so on, as you progress through the game.
 
+## Sources and licenses of the assets used.
+* **Emojis**: Downloaded from [OpenMoji](https://openmoji.org) (license: [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/)) project designed by [HfG Schwäbisch Gmünd](https://www.hfg-gmuend.de/).
+* **Font**: [Luckiest Guy](https://fonts.google.com/specimen/Luckiest+Guy) from Google Fonts (license: [Apache 2.0](https://fonts.google.com/specimen/Luckiest+Guy/license)) designed by [Astigmatic](https://fonts.google.com/?query=Astigmatic). 
+* **Sound effects**:
+  * [30 Free Game Sound FX Pack](https://www.gamedevmarket.net/asset/30-free-game-sound-fx-pack) by [GameBurp](https://www.gamedevmarket.net/member/gameburp).
+  * [50 Free Game Sounds Pack](https://www.gamedevmarket.net/asset/50-free-game-sounds-pack-not-a-placeholder) by [PlaceHolderAssets](https://www.gamedevmarket.net/member/placeholderassets). 
+* **Music**: "Fligh Home", included in [“lofi world vol 1”](https://www.gamedevmarket.net/asset/lofi-world-volume-1-7-free-lofi-tracks) composed by [kummel](https://www.gamedevmarket.net/member/kummel).
+* **Hourglass sprite**: [game-hourglass-pixelated](https://www.vecteezy.com/png/54978930-game-hourglass-pixelated) created by [Idalba Granada](https://www.vecteezy.com/members/studiogstock). 
+
 ## Objective.
 The idea behind this mini-game is to explore the process of exporting a game made with **Golang** and **Ebitengine** to the **Android**platform, in addition to the already tested Web and Desktop platforms.
 

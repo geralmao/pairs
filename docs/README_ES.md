@@ -1,6 +1,15 @@
 # 🇪🇸 MATCH EMOJIS.
 Otro juego de cartas donde se tienen que encontrar las parejas, trios, cuartetos, etc., según se avance en el juego.
 
+## Fuentes y licencias de los recursos utilizados.
+* **Emojis**: Descargados de [OpenMoji](https://openmoji.org) (licencia: [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)](https://creativecommons.org/licenses/by-sa/4.0/)) proyecto diseñado por [HfG Schwäbisch Gmünd](https://www.hfg-gmuend.de/).
+*  **Fuente tipográfica**: [Luckiest Guy](https://fonts.google.com/specimen/Luckiest+Guy) descargada de Google Fonts (licencia: [Apache 2.0](https://fonts.google.com/specimen/Luckiest+Guy/license)) de [Astigmatic](https://fonts.google.com/?query=Astigmatic). 
+* **Efectos de sonido**:
+  * [30 Free Game Sound FX Pack](https://www.gamedevmarket.net/asset/30-free-game-sound-fx-pack) de [GameBurp](https://www.gamedevmarket.net/member/gameburp).
+  * [50 Free Game Sounds Pack](https://www.gamedevmarket.net/asset/50-free-game-sounds-pack-not-a-placeholder) de [PlaceHolderAssets](https://www.gamedevmarket.net/member/placeholderassets).
+* **Música**: La música de fondo del juego es "Flight Home" de [“lofi world vol 1”](https://www.gamedevmarket.net/asset/lofi-world-volume-1-7-free-lofi-tracks) creada por [kummel](https://www.gamedevmarket.net/member/kummel).
+* **Sprite de reloj de arena**: El sprite del reloj es [game-hourglass-pixelated](https://www.vecteezy.com/png/54978930-game-hourglass-pixelated) creado por [Idalba Granada](https://www.vecteezy.com/members/studiogstock).
+
 ## Objetivo.
 La idea de este mini juego es abordar la exportación de un juego realizado con **Golang** y **Ebitengine** a la plataforma **Android**, además de las ya experimentadas Web y Desktop.
 
