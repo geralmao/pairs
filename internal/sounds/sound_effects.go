@@ -34,12 +34,12 @@ func NewSoundEffects() *SoundEffects {
 	const sampleRate = 44100
 	audioContext := audio.NewContext(sampleRate)
 
-	soundEffects.clickButton = loadSound(t_wav, audioContext, loadFx("clickButton.wav"))
-	soundEffects.flipCard = loadSound(t_wav, audioContext, loadFx("flipCard.wav"))
-	soundEffects.targetFound = loadSound(t_wav, audioContext, loadFx("targetFound.wav"))
-	soundEffects.completedLevel = loadSound(t_wav, audioContext, loadFx("completedLevel.wav"))
-	soundEffects.failedLevel = loadSound(t_wav, audioContext, loadFx("failedLevel.wav"))
-	soundEffects.bonusPoint = loadSound(t_wav, audioContext, loadFx("bonusPoint.wav"))
+	soundEffects.clickButton = loadSound(t_ogg, audioContext, loadFx("clickButton.ogg"))
+	soundEffects.flipCard = loadSound(t_ogg, audioContext, loadFx("flipCard.ogg"))
+	soundEffects.targetFound = loadSound(t_ogg, audioContext, loadFx("targetFound.ogg"))
+	soundEffects.completedLevel = loadSound(t_ogg, audioContext, loadFx("completedLevel.ogg"))
+	soundEffects.failedLevel = loadSound(t_ogg, audioContext, loadFx("failedLevel.ogg"))
+	soundEffects.bonusPoint = loadSound(t_ogg, audioContext, loadFx("bonusPoint.ogg"))
 	soundEffects.backgroundMusic = loadSound(t_ogg, audioContext, loadMusic("bgFlightHome.ogg"))
 
 	return soundEffects

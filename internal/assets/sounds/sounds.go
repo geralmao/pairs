@@ -5,7 +5,7 @@ import (
 	"fmt"
 )
 
-//go:embed fx/*.wav
+//go:embed fx/*.ogg
 var SoundFxFS embed.FS
 
 //go:embed music/*.ogg
