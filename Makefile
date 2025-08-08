@@ -1,4 +1,4 @@
-VERSION := 1.1.0
+VERSION := 1.2.0
 
 DIST_DIR := bin
 WEB_DIR := ${DIST_DIR}/web
@@ -26,7 +26,7 @@ build-win:
 
 build-web:
 	mkdir -p ${WEB_DIR}
-	env GOOS=js GOARCH=wasm go build -ldflags="-s -w -X '$(MODULE)/internal.Version=$(VERSION)'" -buildvcs=false -o ${WEB_WASM_TMP} ${MODULE}
+	env GOOS=js GOARCH=wasm go build -ldflags="-s -w -X '$(MODULE)/internal.Version=$(VERSION)'" -trimpath -buildvcs=false -o ${WEB_WASM_TMP} ${MODULE}
 	wasm-opt -Oz --enable-bulk-memory --strip-debug --strip-dwarf --strip-producers ${WEB_WASM_TMP} -o ${WEB_WASM}
 	rm ${WEB_WASM_TMP}
 	cp $$(go env GOROOT)/lib/wasm/wasm_exec.js ${WEB_DIR}

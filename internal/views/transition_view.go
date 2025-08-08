@@ -11,6 +11,8 @@ type TransitionView struct {
 	to                   Viewer
 	onFinishedTransition func()
 	transitionTime       float32
+	fromImage            *ebiten.Image
+	toImage              *ebiten.Image
 }
 
 func NewTransitionView(from, to Viewer, onFinishedTransition func()) *TransitionView {
@@ -40,6 +42,8 @@ func (tv *TransitionView) Update() {
 			tv.onFinishedTransition = nil
 			tv.from = nil
 			tv.to = nil
+			tv.fromImage = nil
+			tv.toImage = nil
 		}
 	} else {
 		tv.transitionTime += config.Dt
@@ -55,19 +59,23 @@ func (tv *TransitionView) Draw(screen *ebiten.Image) {
 	invAlpha := 1.0 - alpha
 
 	// Dibujamos la vista actual (from) con alpha decreciente
-	fromImage := ebiten.NewImage(screen.Bounds().Dx(), screen.Bounds().Dy())
-	tv.from.Draw(fromImage)
+	if tv.fromImage == nil {
+		tv.fromImage = ebiten.NewImage(screen.Bounds().Dx(), screen.Bounds().Dy())
+		tv.from.Draw(tv.fromImage)
+	}
 	opFrom := &ebiten.DrawImageOptions{}
 	opFrom.ColorScale.ScaleAlpha(float32(invAlpha))
-	screen.DrawImage(fromImage, opFrom)
+	screen.DrawImage(tv.fromImage, opFrom)
 
 	// Dibujamos la vista nueva (to) con alpha creciente
-	toImage := ebiten.NewImage(screen.Bounds().Dx(), screen.Bounds().Dy())
-	tv.to.Draw(toImage)
+	if tv.toImage == nil {
+		tv.toImage = ebiten.NewImage(screen.Bounds().Dx(), screen.Bounds().Dy())
+		tv.to.Draw(tv.toImage)
+	}
 	opTo := &ebiten.DrawImageOptions{}
 	opTo.ColorScale.ScaleAlpha(alpha)
 
-	screen.DrawImage(toImage, opTo)
+	screen.DrawImage(tv.toImage, opTo)
 }
 
 func (tv *TransitionView) NextView() ViewId {

@@ -76,6 +76,8 @@ type PlayView struct {
 	transitionTime      float32
 	wingameMessagePos   int
 	wingameMessageWidth float64
+	fromImg             *ebiten.Image
+	toImg               *ebiten.Image
 }
 
 func NewPlayView(textFace *text.GoTextFace, soundCtrl *sounds.SoundController) *PlayView {
@@ -368,6 +370,8 @@ func (pv *PlayView) updateWinGame() {
 func (pv *PlayView) updateTransition() {
 	if pv.transitionTime == transitionDelay {
 		pv.transitionTime = 0
+		pv.fromImg = nil
+		pv.toImg = nil
 		switch pv.lastGameState {
 		case play:
 			if pv.playInnerState == newgame {
@@ -458,18 +462,24 @@ func (pv *PlayView) drawTransition(screen *ebiten.Image) {
 	alpha := utils.EaseInOutCubic(float64(pv.transitionTime / transitionDelay))
 
 	// From state
-	fromImg := ebiten.NewImage(screen.Bounds().Dx(), screen.Bounds().Dy())
-	pv.transitionFromDraw(fromImg)
+	if pv.fromImg == nil {
+		pv.fromImg = ebiten.NewImage(screen.Bounds().Dx(), screen.Bounds().Dy())
+	}
+	pv.fromImg.Clear()
+	pv.transitionFromDraw(pv.fromImg)
 	opFrom := &ebiten.DrawImageOptions{}
 	opFrom.ColorScale.ScaleAlpha(float32(1 - alpha))
-	screen.DrawImage(fromImg, opFrom)
+	screen.DrawImage(pv.fromImg, opFrom)
 
 	// To state
-	toImg := ebiten.NewImage(screen.Bounds().Dx(), screen.Bounds().Dy())
-	pv.transitionToDraw(toImg)
+	if pv.toImg == nil {
+		pv.toImg = ebiten.NewImage(screen.Bounds().Dx(), screen.Bounds().Dy())
+	}
+	pv.toImg.Clear()
+	pv.transitionToDraw(pv.toImg)
 	opTo := &ebiten.DrawImageOptions{}
 	opTo.ColorScale.ScaleAlpha(float32(alpha))
-	screen.DrawImage(toImg, opTo)
+	screen.DrawImage(pv.toImg, opTo)
 }
 
 func (pv *PlayView) emptyCardsFlipped() {

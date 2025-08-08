@@ -28,8 +28,8 @@ android {
     applicationId "com.programatta.games.pairs" // ID de la aplicación
     minSdk 24 // Versión mínima de Android
     targetSdk 35 // Versión de destino
-    versionCode 2
-    versionName "1.1.0"
+    versionCode 3
+    versionName "1.2.0"
   }
 
   signingConfigs {

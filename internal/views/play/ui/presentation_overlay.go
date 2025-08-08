@@ -17,6 +17,7 @@ type PresentationOverlay struct {
 	matchsDescription string
 	presentationTime  float32
 	remove            bool
+	targImg           *ebiten.Image
 }
 
 func NewPresentationOverlay(level, target uint, matchsDescription string) *PresentationOverlay {
@@ -36,34 +37,36 @@ func (po *PresentationOverlay) Update() {
 	if po.presentationTime > presentationDelay {
 		po.presentationTime = 0
 		po.remove = true
+		po.targImg = nil
 	}
 }
 
 func (po *PresentationOverlay) Draw(screen *ebiten.Image, textFace *text.GoTextFace) {
-	targWidth := screen.Bounds().Dx()
-	targHeight := screen.Bounds().Dy()
-	targImg := ebiten.NewImage(targWidth, targHeight)
-	targImg.Fill(color.RGBA{0x49, 0x50, 0x57, 205})
+	if po.targImg == nil {
+		targWidth := screen.Bounds().Dx()
+		targHeight := screen.Bounds().Dy()
+		po.targImg = ebiten.NewImage(targWidth, targHeight)
+	}
+	po.targImg.Fill(color.RGBA{0x49, 0x50, 0x57, 205})
 
 	uiLevelText := fmt.Sprintf("%s: %d", language.Value.Level, po.level)
 	widthText, _ := text.Measure(uiLevelText, textFace, 0)
 	opText := &text.DrawOptions{}
 	opText.GeoM.Translate(float64(config.WindowWidth)/2-widthText/2, float64(config.WindowHeight)/2-50)
 	opText.ColorScale.ScaleWithColor(color.White)
-	text.Draw(targImg, uiLevelText, textFace, opText)
+	text.Draw(po.targImg, uiLevelText, textFace, opText)
 
 	uiPairsText := fmt.Sprintf("%s: %d %s", language.Value.Goal, po.target, po.matchsDescription)
 	widthText, _ = text.Measure(uiPairsText, textFace, 0)
 	opText = &text.DrawOptions{}
 	opText.GeoM.Translate(float64(config.WindowWidth)/2-widthText/2, float64(config.WindowHeight)/2)
 	opText.ColorScale.ScaleWithColor(color.White)
-	text.Draw(targImg, uiPairsText, textFace, opText)
+	text.Draw(po.targImg, uiPairsText, textFace, opText)
 
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(0, 0)
 	op.ColorScale.ScaleAlpha(1.0 - float32(utils.EaseInQuint(float64(po.presentationTime/presentationDelay))))
-
-	screen.DrawImage(targImg, op)
+	screen.DrawImage(po.targImg, op)
 }
 
 func (po *PresentationOverlay) CanRemove() bool {

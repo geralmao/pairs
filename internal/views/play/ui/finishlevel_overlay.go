@@ -27,6 +27,7 @@ type FinishLevelOverlay struct {
 	feedbackCountTime          float32
 	remove                     bool
 	state                      finishLevelState
+	targImg                    *ebiten.Image
 }
 
 func NewFinishLevelOverlay(timeLeftShow float32, score uint, notifier common.Notifier) *FinishLevelOverlay {
@@ -63,43 +64,46 @@ func (flo *FinishLevelOverlay) Update() {
 			if flo.feedbackLevelCompletedTime > feedbackLevelCompletedDelay {
 				flo.feedbackLevelCompletedTime = 0
 				flo.remove = true
+				flo.targImg = nil
 			}
 		}
 	}
 }
 
 func (flo *FinishLevelOverlay) Draw(screen *ebiten.Image, textFace *text.GoTextFace) {
-	targWidth := screen.Bounds().Dx()
-	targHeight := screen.Bounds().Dy()
-	targImg := ebiten.NewImage(targWidth, targHeight)
-	targImg.Fill(color.RGBA{0x49, 0x50, 0x57, 205})
+	if flo.targImg == nil {
+		targWidth := screen.Bounds().Dx()
+		targHeight := screen.Bounds().Dy()
+		flo.targImg = ebiten.NewImage(targWidth, targHeight)
+	}
+	flo.targImg.Fill(color.RGBA{0x49, 0x50, 0x57, 205})
 
 	uiLevelText := language.Value.LevelCompleted
 	widthText, _ := text.Measure(uiLevelText, textFace, 0)
 	opText := &text.DrawOptions{}
 	opText.GeoM.Translate(float64(config.WindowWidth)/2-widthText/2, float64(config.WindowHeight)/2-50)
 	opText.ColorScale.ScaleWithColor(color.White)
-	text.Draw(targImg, uiLevelText, textFace, opText)
+	text.Draw(flo.targImg, uiLevelText, textFace, opText)
 
 	uiBonusTimeText := fmt.Sprintf("%s: %d", language.Value.TimeBonus, uint(flo.timeLeftShow))
 	widthText, _ = text.Measure(uiBonusTimeText, textFace, 0)
 	opText = &text.DrawOptions{}
 	opText.GeoM.Translate(float64(config.WindowWidth)/2-widthText/2, float64(config.WindowHeight)/2)
 	opText.ColorScale.ScaleWithColor(color.White)
-	text.Draw(targImg, uiBonusTimeText, textFace, opText)
+	text.Draw(flo.targImg, uiBonusTimeText, textFace, opText)
 
 	uiBonusPointsText := fmt.Sprintf("%s: %d", language.Value.Score, flo.score)
 	widthText, _ = text.Measure(uiBonusPointsText, textFace, 0)
 	opText = &text.DrawOptions{}
 	opText.GeoM.Translate(float64(config.WindowWidth)/2-widthText/2, float64(config.WindowHeight)/2+50)
 	opText.ColorScale.ScaleWithColor(color.White)
-	text.Draw(targImg, uiBonusPointsText, textFace, opText)
+	text.Draw(flo.targImg, uiBonusPointsText, textFace, opText)
 
 	op := &ebiten.DrawImageOptions{}
 	op.GeoM.Translate(0, 0)
 	op.ColorScale.ScaleAlpha(1.0 - float32(utils.EaseInQuint(float64(flo.feedbackLevelCompletedTime/feedbackLevelCompletedDelay))))
 
-	screen.DrawImage(targImg, op)
+	screen.DrawImage(flo.targImg, op)
 }
 
 func (flo *FinishLevelOverlay) CanRemove() bool {
